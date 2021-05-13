@@ -3,8 +3,7 @@ import Card from '../components/Card'
 import {kalite} from '../Data'
 import '../css/view.css'
 import {connect} from 'react-redux'
-import {increment} from '../actions/index'
-import {useLocation} from 'react-router-dom'
+
 class View extends Component{
 
     
@@ -15,7 +14,7 @@ class View extends Component{
                 
                   {
                     kalite.map(element => {
-                    if(this.props.search != ""){
+                    if(this.props.search !== ""){
                         
                         if(element.name.toLowerCase().includes(this.props.search))
                         {
@@ -23,7 +22,7 @@ class View extends Component{
                             return <Card  title = {element.name} author={element.by} port={element.port} url = {element.url}></Card>
                         }
                     }
-                    else if(this.props.search === "" && this.props.tag != ""){
+                    else if(this.props.search === "" && this.props.tag !== ""){
                         if(element.tags.includes(this.props.tag))
                         {
                             
@@ -31,7 +30,7 @@ class View extends Component{
                         }
 
                     }
-                
+                    return null;
                 })
                 
                 }
@@ -44,13 +43,7 @@ class View extends Component{
 const mapStateToProps = (state) => {
     return {
       search: state.search,
-      tag: state.tag,
-      count: state.count
     }
   }
-  const mapDispatchToProps = () =>{
-    return{
-     increment
-    }
-  }
-export default connect(mapStateToProps, mapDispatchToProps())(View);
+
+export default connect(mapStateToProps)(View);

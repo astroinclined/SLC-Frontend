@@ -8,36 +8,8 @@ const searchReducer = (search = "" , action) =>{
     return search
 }
 
-
-const tagReducer = (tag = "", action) =>{
-    if(action.type === 'TAG')
-    {
-        return action.payload
-    }
-    return tag
-}
-
-const countReducer = (count = 0, action) =>
-{
-    if(action.type == 'INCREMENT')
-    {
-        return count+1
-    }
-    return count
-}
-
-const sourceReducer = (source="" , action) =>
-{
-    if(action.type =='SOURCE'){
-        return action.payload
-    }
-    return source
-}
 const allReducers = combineReducers({
     search: searchReducer,
-    tag: tagReducer,
-    count: countReducer,
-    source: sourceReducer
 })
 
 
