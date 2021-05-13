@@ -140,6 +140,7 @@ const useStyles = makeStyles((theme) => ({
     borderTop: '1px solid rgba(0, 0, 0, 0.12)'
   },
   contentContainer: {
+    width: '100%',
     flexDirection: 'column',
   }
 }));
@@ -346,7 +347,7 @@ function ClippedDrawer(props: Pick<ReduxProps, "search" | "changeSearch">) {
                       }
                     })}
                 </Grid>
-              ) : null
+              ) : "HOME PAGE"
             )
           )}
 
