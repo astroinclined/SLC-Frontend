@@ -6,17 +6,19 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import { CardProps } from '../types';
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 300,
+    margin: 'auto'
   },
   media: {
     height: 186,
   },
 });
 
-export default function ModuleCard(props) {
+export default function ModuleCard(props: CardProps) {
   const classes = useStyles();
   const path = "http://10.10.10.10:" + props.port + props.url;
   const onClick = () =>

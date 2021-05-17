@@ -502,10 +502,18 @@ export const kalite = [
         tags: 'sciences',
         url: '/modules/en-ck12/Physical_Science.pdf',
         by: 'CK-12 Textbooks'
-    },
-    
-    
-    
-    
-    
+    },   
 ]
+
+export const subjects = ['Mathematics', 'Sciences', 'Social', 'Arts & Humanities', 'Technology', 'Languages', 'Literature', 'Everyday Life'];
+export const sources = ['African Storybooks', 'CK-12 Textbooks', 'GCF Learnfree', 'Great Books of the World', 'Hesperian Health Guides', 'Infonet - Biovision', 'Literature', 'Interactive World Map', 'KA Lite Essentials', 'Mediline Plus', 'Music Theory', 'Practical Actions', 'Wikipedia for Schools', 'Wikivoyage', 'Wikitionary'];
+
+export const groupedCategories = {
+  'Mathematics': {
+    'General': ['Early Math', 'Arithmetic'],
+    'Algebra': ['Pre-Algebra', 'Algebra Basics', 'Algebra I', 'Algebra II'],
+    'Geometry': ['Basic Geometry', 'Geometry', 'Trigonometry'],
+    'Probability': ['Probability and Statistics'],
+    'Calculus': ['Pre-Calculus', 'Differential Calculus', 'Integral Calculus', 'Multivariable Calculus', 'Differential Equations'],
+  }
+}

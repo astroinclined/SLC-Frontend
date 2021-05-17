@@ -5,6 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { CardActionArea } from '@material-ui/core';
+import { CardProps } from '../types';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function ResultCard(props) {
+export default function ResultCard(props: CardProps) {
   const classes = useStyles();
 
   return (

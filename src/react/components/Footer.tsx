@@ -1,6 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 
-const useStyles = makeStyles(() => ({
+const breakpoint = 725;
+
+const useStyles = makeStyles((theme) => ({
   footer: {
     display: 'flex',
     marginTop: 'auto',
@@ -9,11 +12,26 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-between',
     padding: '30px 36px',
     color: 'white',
+    textAlign: 'left',
+    fontWeight: 400,
+    [theme.breakpoints.down(breakpoint)]: {
+      flexDirection: 'column-reverse'
+    }
   },
   links: {
     display: 'flex',
-    width: '20%',
-    justifyContent: 'space-between'
+    width: '240px',
+    fontWeight: 700,
+    justifyContent: 'space-between',
+    [theme.breakpoints.down(breakpoint)]: {
+      flexDirection: 'column',
+      marginBottom: theme.spacing(1)
+    }
+  },
+  linkItem: {
+    [theme.breakpoints.down(breakpoint)]: {
+      marginBottom: theme.spacing(1)
+    }
   }
 }));
 
@@ -25,9 +43,9 @@ export default function Footer() {
         &#169; 2021 Simbi Foundation
       </div>
       <div className={classes.links}>
-        <div>About</div>
-        <div>Terms of use</div>
-        <div>Privacy policy</div>
+        <div className={classes.linkItem}>About</div>
+        <div className={classes.linkItem}>Terms of use</div>
+        <div className={classes.linkItem}>Privacy policy</div>
       </div>
     </div>
   );
