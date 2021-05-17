@@ -224,7 +224,7 @@ function ClippedDrawer(props: ReduxProps) {
   React.useEffect(() => {
     setStateFromPathname();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [pathname]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceInput = React.useCallback(debounce((input: string) => {
