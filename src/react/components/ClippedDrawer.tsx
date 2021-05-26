@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import ModuleCard from './Card'
 import ResultCard from './ResultsCard'
 import PDFCard from './pdfCard'
+import HomePage from './HomePage'
 import { Button, ButtonGroup, Grid, Typography } from "@material-ui/core";
 import { groupedCategories, kalite, sources, subjects } from '../Data'
 import logo from '../art/logo.png'
@@ -380,7 +381,7 @@ function ClippedDrawer(props: ReduxProps) {
                       }
                     })}
                 </Grid>
-              ) : "HOME PAGE"
+              ) : <HomePage title= "" ></HomePage>
             )
           )}
 

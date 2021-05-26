@@ -17,6 +17,14 @@ export interface CardProps {
   author: string;
   title: string;
 }
+export interface HomeProps {
+  title: string;
+}
+
+export interface VideoCardProps {
+  title: string
+  description: string
+}
 
 // These are all the states and actions that get mapped to props by Redux
 export interface ReduxProps extends ReduxState {
