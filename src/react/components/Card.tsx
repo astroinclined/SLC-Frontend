@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { CardProps } from '../types';
+import { openInNewTab } from '../../helpers';
 
 const useStyles = makeStyles({
   root: {
@@ -20,14 +21,9 @@ const useStyles = makeStyles({
 
 export default function ModuleCard(props: CardProps) {
   const classes = useStyles();
-  const path = "http://10.10.10.10:" + props.port + props.url;
-  const onClick = () =>
-  {
-    window.location.assign(path)
-  }
+
   return (
-    
-    <Card style={{height: '100%'}} onClick={onClick} className={classes.root}>
+    <Card style={{height: '100%'}} onClick={() => openInNewTab(props.port, props.url)} className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}

@@ -6,6 +6,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { CardActionArea } from '@material-ui/core';
 import { CardProps } from '../types';
+import { openInNewTab } from '../../helpers';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,7 +38,7 @@ export default function PDFCard(props: CardProps) {
   const classes = useStyles();
 
   return (
-    <CardActionArea style= {{height:'100%'}}>
+    <CardActionArea style= {{height:'100%'}} onClick={() => openInNewTab(props.port, props.url)}>
     <Card style={{height:'100%'}} className={classes.root}>
       <CardMedia
         className={classes.cover}
