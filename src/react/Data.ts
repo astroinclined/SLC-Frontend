@@ -919,10 +919,546 @@ export const kalite = [
         url: '/modules/en-hesperian_health/en_hhwl_2012_full/page1.html',
         by: 'Hesperian Health Guides'
     },
+    {
+        name: 'Plant',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$text$-1$plantHealth.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Crops, Fruits, Vegetables and grains',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$crops.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Pests, Diseases, and Weeds',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$pests.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Medicinal Plants',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$medicinalPlants.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Fruit and Vegetable Processing',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$farmPlanningAndMarketing.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Natural Pest Control',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$recipesForOrganicPesticides.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Cultural Control Pracitices',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$soilFertilityManagement.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Human',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$text$-1$humanHealth.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Healthy Foood',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$healthyFood.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Nutrition Related Diseases',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$nutrition.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Insect Transmitted Diseases',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$humanDiseases.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Zoonotic Diseases',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$zoonoticDiseases.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Hygiene and Sanitation',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$hygiene.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Animals',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$text$-1$animalHealth.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Animal Husbandry and Welfare',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$animalKeeping.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Livestock Species and Commerical Insects',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$livestockSpecies.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Fodder Production',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$fodder.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Products',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$products.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Environment',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$text$-1$environmentalHealth.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Agro-ecological Zones',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$agrozones.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Water Management',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$soilConservation.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Soil Management',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$soilManagement.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Sustainable and Organic Agriculture',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$sustainableLandManagement.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Conservation Agriculture',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$biodiversity.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Trees',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$agroforestry.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Processing and Value Addition',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-infonet/export/default$ovvImg$-1$incomeGeneration.html',
+        by: 'Infonet-Biovision'
+    },
+    {
+        name: 'Musical Theory',
+        type: 'module',
+        port: '8010',
+        tags: 'Arts and Humanities',
+        url: '/modules/en-musictheory/files/index.html',
+        by: 'Musical Theory'
+    },
+    {
+        name: 'Agriculture',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Agriculture',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Construction',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Construction',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Crop Processing',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Crop%20processing',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Disaster Response, Mitigation, and Rebuilding',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Disaster%20response,%20mitigation%20and%20rebuilding',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Energy',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Energy',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Environment and Adaptation to Climate Change',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Environment%20and%20adaptation%20to%20climate%20change',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Fisheries',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Fisheries',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Food Processing',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Food%20processing',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Information, Communication, Learning',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Information,%20communication,%20learning',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Livestock',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Livestock',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Manufacturing, Handicraft, Process Industries',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Manufacturing,%20handicraft,%20process%20industries',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Natural Resources Management',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Natural%20resources%20management',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Natural Resources Management',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Natural%20resources%20management',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Social and Economic Development',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Social%20and%20economic%20development',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Transport and Infrastruture',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Transport%20and%20infrastructure',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Waste Management',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Waste%20management',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Water and Sanitiation',
+        type: 'module',
+        port: '8010',
+        tags: 'science',
+        url: '/modules/en-practical_action/index.html#Water%20and%20sanitation',
+        by: 'Practical Action'
+    },
+    {
+        name: 'Art',
+        type: 'module',
+        port: '81',
+        tags: 'Arts and Humanities',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.Art.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'Business Studies',
+        type: 'module',
+        port: '81',
+        tags: 'Arts and Humanities',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.Business_Studies.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'Citizenship',
+        type: 'module',
+        port: '81',
+        tags: 'Everyday Life',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.Citizenship.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'Countries',
+        type: 'module',
+        port: '81',
+        tags: 'Everyday Life',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.Countries.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'Design and Technology',
+        type: 'module',
+        port: '81',
+        tags: 'science',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.Design_and_Technology.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'Everyday Life',
+        type: 'module',
+        port: '81',
+        tags: 'Everyday Life',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.Everyday_life.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'Geography',
+        type: 'module',
+        port: '81',
+        tags: 'Everyday Life',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.Geography.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'History',
+        type: 'module',
+        port: '81',
+        tags: 'Everyday Life',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.History.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'IT',
+        type: 'module',
+        port: '81',
+        tags: 'technology',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.IT.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'Language and Literature',
+        type: 'module',
+        port: '81',
+        tags: 'Arts and Humanities',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.Language_and_literature.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'Mathematics',
+        type: 'module',
+        port: '81',
+        tags: 'mathematics',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.Mathematics.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'Music',
+        type: 'module',
+        port: '81',
+        tags: 'mathematics',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.Music.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'People',
+        type: 'module',
+        port: '81',
+        tags: 'Arts and Humanities',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.People.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'People',
+        type: 'module',
+        port: '81',
+        tags: '',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.Portals.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'Portals',
+        type: 'module',
+        port: '81',
+        tags: '',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.Portals.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'Religion',
+        type: 'module',
+        port: '81',
+        tags: 'Everyday Life',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.Religion.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'Science',
+        type: 'module',
+        port: '81',
+        tags: 'science',
+        url: '/wikipedia_en_for_schools_opt_2013/A/wp/index/subject.Science.htm',
+        by: 'Wikipedia for Schools'
+    },
+    {
+        name: 'Wikivoyage',
+        type: 'module',
+        port: '81',
+        tags: '',
+        url: '/wikivoyage_en_all_2016-04/',
+        by: 'Wikivoyage'
+    },
+    {
+        name: 'Mozilla Firefox',
+        type: 'module',
+        port: '8010',
+        tags: '',
+        url: '/modules/en-windows_apps/FirefoxPortable_65.0.2_English.paf.exe',
+        by: 'Windows Applications'
+    },
+    {
+        name: 'OpenOffice Suite',
+        type: 'module',
+        port: '8010',
+        tags: '',
+        url: '/modules/en-windows_apps/OpenOfficePortable_4.1.5_MultilingualStandard.paf.exe',
+        by: 'Windows Applications'
+    },
+    {
+        name: 'VLC Video Player',
+        type: 'module',
+        port: '8010',
+        tags: '',
+        url: '/modules/en-windows_apps/VLCPortable_3.0.4.paf.exe',
+        by: 'Windows Applications'
+    },
+    {
+        name: 'Putty SSH',
+        type: 'module',
+        port: '8010',
+        tags: '',
+        url: '/modules/en-windows_apps/PuTTYPortable_0.70_English.paf.exe',
+        by: 'Windows Applications'
+    },
+    {
+        name: 'Interactive World Map',
+        type: 'module',
+        port: '8010',
+        tags: '',
+        url: '/modules/en-worldmap/map.html',
+        by: 'Interactive World Map'
+    },
 ]
 
 export const subjects = ['Mathematics', 'Sciences', 'Social', 'Arts & Humanities', 'Technology', 'Languages', 'Literature', 'Everyday Life'];
-export const sources = ['African Storybook Project', 'CK-12 Textbooks', 'GCF Learnfree', 'Great Books of the World', 'Hesperian Health Guides', 'Infonet - Biovision','Interactive World Map', 'KA Lite Essentials', 'Mediline Plus', 'Music Theory', 'Practical Actions', 'Wikipedia for Schools', 'Wikivoyage', 'Wikitionary'];
+export const sources = ['African Storybook Project', 'CK-12 Textbooks', 'GCF Learnfree', 'Great Books of the World', 'Hesperian Health Guides', 'Infonet - Biovision','Interactive World Map', 'KA Lite Essentials', 'Mediline Plus', 'Musical Theory', 'Practical Action', 'Wikipedia for Schools', 'Wikivoyage', 'Wikitionary'];
 
 export const groupedCategories = {
   'Mathematics': {
