@@ -9,28 +9,37 @@ import Typography from '@material-ui/core/Typography';
 import { CardProps } from '../types';
 import { openInNewTab } from '../../helpers';
 
+const PICTURE_HEIGHT = '186px';
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 300,
-    margin: 'auto'
+    margin: 'auto',
+    height: '100%',
   },
   media: {
-    height: 186,
+    height: PICTURE_HEIGHT,
   },
+  action: {
+    height: '100%'
+  },
+  text: {
+    height: `calc(100% - ${PICTURE_HEIGHT})`
+  }
 });
 
 export default function ModuleCard(props: CardProps) {
   const classes = useStyles();
 
   return (
-    <Card style={{height: '100%'}} onClick={() => openInNewTab(props.port, props.url)} className={classes.root}>
-      <CardActionArea>
+    <Card onClick={() => openInNewTab(props.port, props.url)} className={classes.root}>
+      <CardActionArea className={classes.action}>
         <CardMedia
           className={classes.media}
           image="https://animals.sandiegozoo.org/sites/default/files/2016-11/animals_hero_lizards.jpg"
           title="Contemplative Reptile"
         />
-        <CardContent>
+        <CardContent className={classes.text}>
           <Typography gutterBottom variant="h6" component="h2">
             {props.title}
           </Typography>

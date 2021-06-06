@@ -14,8 +14,7 @@ import ResultCard from './ResultsCard'
 import PDFCard from './pdfCard'
 import HomePage from './HomePage'
 import { Button, ButtonGroup, Grid, Typography } from "@material-ui/core";
-import { groupedCategories, kalite, sources, subjects } from '../Data'
-import logo from '../art/logo.png'
+import { data, sources, subjects, Tag, TagMap } from '../Data'
 import { ReduxProps, ReduxState, View } from '../types';
 import Footer from './Footer';
 import { formatString } from '../../helpers';
@@ -58,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     maxWidth: 210,
-    height: 64,
+    height: 90,
     marginRight: 16,
     marginLeft: -12,
     [theme.breakpoints.down('xs')]: {
@@ -184,11 +183,11 @@ function ClippedDrawer(props: ReduxProps) {
     if (isPathInSubjects) {
       setView(View.SUBJECTS);
       setCategory(subjects.find(el => formatString(el) === pathname)!);
-      setResults(kalite.filter(el => el.tags.toLowerCase() === pathname));
+      setResults(data.filter(el => Object.keys(el.tags).map(key => formatString(key)).includes(pathname)));
     } else if (isPathInSources) {
       setView(View.SOURCES);
       setCategory(sources.find(el => formatString(el) === pathname)!);
-      setResults(kalite.filter(el => formatString(el.by) === pathname));
+      setResults(data.filter(el => formatString(el.by) === pathname));
     } else if (pathname === '') {
       setView(View.HOME);
       setResults([]);
@@ -200,16 +199,18 @@ function ClippedDrawer(props: ReduxProps) {
   }
 
   const getSubjectContent = () => {
-    if (category in groupedCategories) {
-      const subCategoryObj = (groupedCategories as any)[category];
-      return Object.keys(subCategoryObj).map((key) => {
+    const subjectTag = category as Tag;
+    const subCategories = Object.values(TagMap[subjectTag]);
+
+    if (subCategories) {
+      return subCategories.map((subCategory) => {
         return (
           <Grid container spacing={4} className={classes.subcategoryGrid}>
             <Grid item xs={12} sm={12} md={12} className={classes.leftAlignText}>
-              <Typography variant="h5">{key}</Typography>
-              <Typography variant="subtitle1" color="textSecondary">Description for {key}</Typography>
+              <Typography variant="h5">{subCategory}</Typography>
+              <Typography variant="subtitle1" color="textSecondary">Description for {subCategory}</Typography>
             </Grid>
-            {results.filter(el => subCategoryObj[key].includes(el.name)).map(element =>
+            {results.filter(el => subjectTag in el.tags && el.tags[subjectTag] === subCategory).map(element =>
               <Grid item xs={12} sm={6} md={4}><ModuleCard title={element.name} author={element.by} port={element.port} url={element.url} /></Grid>
             )}
           </Grid>
@@ -232,7 +233,7 @@ function ClippedDrawer(props: ReduxProps) {
     if (input !== '') {
       props.changeSearch(input);
       setView(View.SEARCH);
-      setResults(kalite.filter(el => el.name.toLowerCase().includes(input.toLowerCase())));
+      setResults(data.filter(el => el.name.toLowerCase().includes(input.toLowerCase())));
     } else {
       setStateFromPathname();
     }
@@ -256,7 +257,7 @@ function ClippedDrawer(props: ReduxProps) {
             </IconButton>
           )}
           {!(hideAppBarControls && isSmallScreen) && (
-            <img src={logo} alt='Simbi Learn Cloud' className={classes.logo} />
+            <img src="/simbi.png" alt='Simbi Learn Cloud' className={classes.logo} />
           )}
           {!mobileMenuOpen && (
             <section className={classes.rightToolbar}>

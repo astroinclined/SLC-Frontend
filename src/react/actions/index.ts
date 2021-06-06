@@ -1,4 +1,5 @@
-import { KaliteObj, View } from '../types'
+import { DataObject } from '../Data'
+import { View } from '../types'
 
 export const changeSearch = (payload: string) => {
   return {
@@ -22,7 +23,7 @@ export const setCategory = (payload: string) => {
   }
 }
 
-export const setResults = (payload: KaliteObj[]) => {
+export const setResults = (payload: DataObject[]) => {
   return {
     type: 'RESULTS',
     payload

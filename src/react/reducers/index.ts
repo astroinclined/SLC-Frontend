@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
-import { KaliteObj, View } from '../types';
+import { DataObject } from '../Data';
+import { View } from '../types';
 
 const searchReducer = (search = "", action: { type: string, payload: string }) => {
   if (action.type === 'SEARCH') {
@@ -22,7 +23,7 @@ const categoryReducer = (category = '', action: { type: string, payload: string 
   return category;
 }
 
-const resultsReducer = (results = [], action: { type: string, payload: KaliteObj[] }) => {
+const resultsReducer = (results = [], action: { type: string, payload: DataObject[] }) => {
   if (action.type === 'RESULTS') {
     return action.payload;
   }

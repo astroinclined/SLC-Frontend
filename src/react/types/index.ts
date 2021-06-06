@@ -1,14 +1,7 @@
+import { DataObject } from '../Data';
+
 export enum View {
   HOME, SEARCH, SUBJECTS, SOURCES
-}
-
-export interface KaliteObj {
-  name: string;
-  port: string;
-  type: string;
-  tags: string;
-  url: string;
-  by: string;
 }
 
 export interface CardProps {
@@ -31,14 +24,14 @@ export interface ReduxProps extends ReduxState {
   changeSearch: (tag: string) => void;
   setView: (view: View) => void;
   setCategory: (category: string) => void;
-  setResults: (results: KaliteObj[]) => void;
+  setResults: (results: DataObject[]) => void;
 }
 
 export interface ReduxState {
   search: string;
   view: View;
   category: string;
-  results: KaliteObj[];
+  results: DataObject[];
 }
 
 export const defaultState = {

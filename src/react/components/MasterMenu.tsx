@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import { kalite, sources, subjects } from '../Data';
+import { data, sources, subjects } from '../Data';
 import { formatString } from '../../helpers';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
@@ -80,7 +80,7 @@ function MasterMenu(props: Pick<ReduxProps, "setView" | "setCategory" | "setResu
               onClick={() => {
                 setCategory(text);
                 setView(View.SUBJECTS);
-                setResults(kalite.filter(el => el.tags.toLowerCase() === formatString(text)));
+                setResults(data.filter(el => text in el.tags));
                 props.setOpen(false);
               }}
               component={Link}
@@ -104,7 +104,7 @@ function MasterMenu(props: Pick<ReduxProps, "setView" | "setCategory" | "setResu
               onClick={() => {
                 setCategory(text);
                 setView(View.SOURCES);
-                setResults(kalite.filter(el => formatString(el.by) === formatString(text)));
+                setResults(data.filter(el => formatString(el.by) === formatString(text)));
                 props.setOpen(false);
               }}
               component={Link}
