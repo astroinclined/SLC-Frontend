@@ -1,5 +1,7 @@
-import { DataObject } from '../Data'
-import { View } from '../types'
+import { Module } from '../Data'
+import { CategoryObject, CategoryPayload, View } from '../types'
+import { Dispatch } from "redux";
+import ModuleService from '../../services/modules';
 
 export const changeSearch = (payload: string) => {
   return {
@@ -9,6 +11,14 @@ export const changeSearch = (payload: string) => {
   }
 }
 
+export const loadSearchResults = (payload: string) => (dispatch: Dispatch) => {
+  ModuleService.list({ search: payload }).then(modules => {
+    dispatch(setResults(modules));
+    dispatch(changeSearch(payload));
+    dispatch(setView(View.SEARCH));
+  });
+}
+
 export const setView = (payload: View) => {
   return {
     type: 'VIEW',
@@ -16,14 +26,29 @@ export const setView = (payload: View) => {
   }
 }
 
-export const setCategory = (payload: string) => {
+export const setCategory = (payload: CategoryObject) => {
   return {
     type: 'CATEGORY',
     payload
   }
 }
 
-export const setResults = (payload: DataObject[]) => {
+export const loadCategoryModules = (payload: CategoryPayload) => (dispatch: Dispatch) => {
+  const isSubject = payload.type === 'subject';
+
+  ModuleService.list({
+    subject: isSubject ? payload.title : undefined,
+    source: !isSubject ? payload.title : undefined,
+  }).then(modules => {
+    dispatch(setCategory({
+      ...payload,
+      modules,
+    }));
+    dispatch(setView(isSubject ? View.SUBJECTS : View.SOURCES));
+  });
+}
+
+export const setResults = (payload: Module[]) => {
   return {
     type: 'RESULTS',
     payload

@@ -7,15 +7,15 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { useLocation } from 'react-router-dom'
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import { changeSearch, setView, setCategory, setResults } from '../actions'
-import { connect } from 'react-redux';
+import { setView, loadCategoryModules, loadSearchResults } from '../actions'
+import { connect, ConnectedProps } from 'react-redux';
 import ModuleCard from './Card'
 import ResultCard from './ResultsCard'
 import PDFCard from './pdfCard'
 import HomePage from './HomePage'
 import { Button, ButtonGroup, Grid, Typography } from "@material-ui/core";
-import { data, sources, subjects, Tag, TagMap } from '../Data'
-import { ReduxProps, ReduxState, View } from '../types';
+import { Display, sources, Subject, subjects, TagMap } from '../Data'
+import { ReduxState, View } from '../types';
 import Footer from './Footer';
 import { formatString } from '../../helpers';
 import MasterMenu from './MasterMenu';
@@ -26,6 +26,25 @@ import useTheme from '@material-ui/core/styles/useTheme';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import debounce from '@material-ui/core/utils/debounce';
 import { CSSTransition } from 'react-transition-group';
+
+const mapDispatchToProps = {
+  setView,
+  loadCategoryModules,
+  loadSearchResults,
+}
+
+const mapStateToProps = (state: ReduxState) => {
+  return {
+    search: state.search,
+    view: state.view,
+    category: state.category,
+    results: state.results,
+  }
+}
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type Props = ConnectedProps<typeof connector>;
 
 interface ThemeProps {
   searchOpen: boolean;
@@ -154,8 +173,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function ClippedDrawer(props: ReduxProps) {
-  const { view, category, results, setView, setCategory, setResults } = props;
+function ClippedDrawer(props: Props) {
+  const { view, category, results, setView, loadCategoryModules, loadSearchResults } = props;
 
   const searchRef = React.useRef<any>();
 
@@ -175,32 +194,39 @@ function ClippedDrawer(props: ReduxProps) {
   const pathname = location.pathname.slice(1);
 
   const setStateFromPathname = () => {
-    props.changeSearch('');
-
     const isPathInSubjects = subjects.map(el => formatString(el)).includes(pathname);
     const isPathInSources = sources.map(el => formatString(el)).includes(pathname);
 
     if (isPathInSubjects) {
-      setView(View.SUBJECTS);
-      setCategory(subjects.find(el => formatString(el) === pathname)!);
-      setResults(data.filter(el => Object.keys(el.tags).map(key => formatString(key)).includes(pathname)));
+      // setView(View.SUBJECTS);
+      loadCategoryModules({
+        type: 'subject',
+        title: subjects.find(el => formatString(el) === pathname)!
+      });
+      // setResults(data.filter(el => Object.keys(el.tags).map(key => formatString(key)).includes(pathname)));
     } else if (isPathInSources) {
-      setView(View.SOURCES);
-      setCategory(sources.find(el => formatString(el) === pathname)!);
-      setResults(data.filter(el => formatString(el.by) === pathname));
+      // setView(View.SOURCES);
+      loadCategoryModules({
+        type: 'source',
+        title: sources.find(el => formatString(el) === pathname)!
+      });
+      // setResults(data.filter(el => formatString(el.by) === pathname));
     } else if (pathname === '') {
       setView(View.HOME);
-      setResults([]);
+      // setResults([]);
     } else {
       // Add 404 to enum and set that here?
       setView(View.HOME);
-      setResults([]);
+      // setResults([]);
     }
   }
 
   const getSubjectContent = () => {
-    const subjectTag = category as Tag;
-    const subCategories = Object.values(TagMap[subjectTag]);
+    if (category.type !== 'subject') {
+      return;
+    }
+
+    const subCategories = Object.values(TagMap[category.title as Subject]);
 
     if (subCategories) {
       return subCategories.map((subCategory) => {
@@ -210,15 +236,15 @@ function ClippedDrawer(props: ReduxProps) {
               <Typography variant="h5">{subCategory}</Typography>
               <Typography variant="subtitle1" color="textSecondary">Description for {subCategory}</Typography>
             </Grid>
-            {results.filter(el => subjectTag in el.tags && el.tags[subjectTag] === subCategory).map(element =>
-              <Grid item xs={12} sm={6} md={4}><ModuleCard title={element.name} author={element.by} port={element.port} url={element.url} /></Grid>
+            {category.modules.filter(el => el.tags.some(tag => tag.name === subCategory)).map(element =>
+              <Grid item xs={12} sm={6} md={4}><ModuleCard title={element.name} author={element.source} port={element.port} url={element.url} /></Grid>
             )}
           </Grid>
         );
       });
     } else {
-      return results.map(element =>
-        <Grid item xs={12} sm={6} md={4}><ModuleCard title={element.name} author={element.by} port={element.port} url={element.url} /></Grid>
+      return category.modules.map(element =>
+        <Grid item xs={12} sm={6} md={4}><ModuleCard title={element.name} author={element.source} port={element.port} url={element.url} /></Grid>
       );
     }
   }
@@ -231,9 +257,9 @@ function ClippedDrawer(props: ReduxProps) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceInput = React.useCallback(debounce((input: string) => {
     if (input !== '') {
-      props.changeSearch(input);
-      setView(View.SEARCH);
-      setResults(data.filter(el => el.name.toLowerCase().includes(input.toLowerCase())));
+      loadSearchResults(input);
+      // setView(View.SEARCH);
+      //setResults(data.filter(el => el.name.toLowerCase().includes(input.toLowerCase())));
     } else {
       setStateFromPathname();
     }
@@ -355,15 +381,15 @@ function ClippedDrawer(props: ReduxProps) {
                 </Grid>
               )}
               {results.map(element =>
-                <Grid item xs={12} sm={12} md={12}><ResultCard title={element.name} author={element.by} port={element.port} url={element.url} /></Grid>
+                <Grid item xs={12} sm={12} md={12}><ResultCard title={element.name} author={element.source} port={element.port} url={element.url} /></Grid>
               )}
             </Grid>
           ) : (
             view === View.SUBJECTS ? (
               <Grid container spacing={4}>
                 <Grid item xs={12} sm={12} md={12} className={classes.leftAlignText}>
-                  <Typography variant="h4">Subject: {category}</Typography>
-                  <Typography variant="subtitle1" color="textSecondary">Description for {category}</Typography>
+                  <Typography variant="h4">Subject: {category.title}</Typography>
+                  <Typography variant="subtitle1" color="textSecondary">Description for {category.title}</Typography>
                 </Grid>
                 {getSubjectContent()}
               </Grid>
@@ -371,14 +397,14 @@ function ClippedDrawer(props: ReduxProps) {
               view === View.SOURCES ? (
                 <Grid direction="column" spacing={1} container className={classes.leftAlignText}>
                   <Grid item xs={12} sm={12} md={12}>
-                    <Typography variant="h4">Source: {category}</Typography>
-                    <Typography variant="subtitle1" color="textSecondary">Description for {category}</Typography>
+                    <Typography variant="h4">Source: {category.title}</Typography>
+                    <Typography variant="subtitle1" color="textSecondary">Description for {category.title}</Typography>
                   </Grid>
-                  {results
+                  {category.modules
                     .map(element => {
-                      if (element.type === 'pdf') { return <Grid item xs={12} sm={12} md={12}><PDFCard title={element.name} author={element.by} port={element.port} url={element.url} /></Grid> }
+                      if (element.display === Display.Text) { return <Grid item xs={12} sm={12} md={12}><PDFCard title={element.name} author={element.source} port={element.port} url={element.url} /></Grid> }
                       else {
-                        return <Grid item xs={12} sm={12} md={12}><ResultCard title={element.name} author={element.by} port={element.port} url={element.url} /></Grid>
+                        return <Grid item xs={12} sm={12} md={12}><ResultCard title={element.name} author={element.source} port={element.port} url={element.url} /></Grid>
                       }
                     })}
                 </Grid>
@@ -395,20 +421,4 @@ function ClippedDrawer(props: ReduxProps) {
   );
 }
 
-const mapDispatchToProps = {
-  changeSearch,
-  setView,
-  setCategory,
-  setResults,
-}
-
-const mapStateToProps = (state: ReduxState) => {
-  return {
-    search: state.search,
-    view: state.view,
-    category: state.category,
-    results: state.results,
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ClippedDrawer)
+export default connector(ClippedDrawer)

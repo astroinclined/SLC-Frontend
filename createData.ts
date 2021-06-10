@@ -15,7 +15,7 @@
  * also merged with the rest and should be separated manually.
  */
 
-import { Arts, DataObject, EverydayLife, Literature, Tag } from './src/react/Data';
+import { Arts, DataObject, EverydayLife, Literature, Subject } from './src/react/Data';
 
 let objs: DataObject[] = [];
 let blacklist = ['Exercises', 'Tests', 'Printable PDF'];
@@ -25,7 +25,7 @@ for (let i = 0; i < els.length; i++) {
   let obj = {
     name: el.text.trim().replace(/\*/g, ''),
     port: el.port,
-    url: el.pathname,
+    url: el.pathname + el.hash,
   }
 
   if (blacklist.includes(obj.name)) {
@@ -35,7 +35,7 @@ for (let i = 0; i < els.length; i++) {
   if (el.pathname.startsWith('/learn/khan')) {
     objs.push({
       ...obj,
-      type: 'module',
+      type: 'primary',
       by: 'KA Lite Essentials',
       tags: {}
     });
@@ -47,8 +47,8 @@ for (let i = 0; i < els.length; i++) {
       type: 'module+',
       by: 'African Storybooks',
       tags: {
-        [Tag.Literature]: Literature.Fiction,
-        [Tag.Languages]: null as unknown as undefined,
+        [Subject.Literature]: Literature.Fiction,
+        [Subject.Languages]: null as unknown as undefined,
       }
     });
   }
@@ -56,7 +56,7 @@ for (let i = 0; i < els.length; i++) {
   else if (el.pathname.startsWith('/modules/en-ck12')) {
     objs.push({
       ...obj,
-      type: 'pdf',
+      type: 'text',
       by: 'CK-12 Textbooks',
       tags: {}
     });
@@ -65,10 +65,10 @@ for (let i = 0; i < els.length; i++) {
   else if (el.pathname.startsWith('/modules/en-ebooks')) {
     objs.push({
       ...obj,
-      type: 'module',
+      type: 'primary',
       by: 'Great Books of the World',
       tags: {
-        [Tag.Literature]: Literature.Fiction,
+        [Subject.Literature]: Literature.Fiction,
       }
     });
   }
@@ -76,7 +76,7 @@ for (let i = 0; i < els.length; i++) {
   else if (el.pathname.startsWith('/modules/en-GCF2015')) {
     objs.push({
       ...obj,
-      type: 'module',
+      type: 'primary',
       by: 'GCF Learnfree',
       tags: {}
     });
@@ -85,10 +85,10 @@ for (let i = 0; i < els.length; i++) {
   else if (el.pathname.startsWith('/modules/en-hesperian_health')) {
     objs.push({
       ...obj,
-      type: 'pdf',
+      type: 'text',
       by: 'Hesperian Health Guides',
       tags: {
-        [Tag.EverydayLife]: EverydayLife.HumanHealth,
+        [Subject.EverydayLife]: EverydayLife.HumanHealth,
       }
     });
   }
@@ -96,10 +96,10 @@ for (let i = 0; i < els.length; i++) {
   else if (el.pathname.startsWith('/modules/en-infonet')) {
     objs.push({
       ...obj,
-      type: 'module',
+      type: 'primary',
       by: 'Infonet - Biovision',
       tags: {
-        [Tag.EverydayLife]: null as unknown as undefined,
+        [Subject.EverydayLife]: null as unknown as undefined,
       }
     });
   }
@@ -107,10 +107,10 @@ for (let i = 0; i < els.length; i++) {
   else if (el.pathname.startsWith('/modules/en-medline_plus')) {
     objs.push({
       ...obj,
-      type: 'module',
+      type: 'primary',
       by: 'Medline Plus',
       tags: {
-        [Tag.EverydayLife]: EverydayLife.HumanHealth,
+        [Subject.EverydayLife]: EverydayLife.HumanHealth,
       }
     });
   }
@@ -118,10 +118,10 @@ for (let i = 0; i < els.length; i++) {
   else if (el.pathname.startsWith('/modules/en-musictheory')) {
     objs.push({
       ...obj,
-      type: 'module',
+      type: 'primary',
       by: 'Music Theory',
       tags: {
-        [Tag.Arts]: Arts.Music,
+        [Subject.Arts]: Arts.Music,
       }
     });
   }
@@ -129,10 +129,10 @@ for (let i = 0; i < els.length; i++) {
   else if (el.pathname.startsWith('/modules/en-practical_action')) {
     objs.push({
       ...obj,
-      type: 'module',
+      type: 'primary',
       by: 'Practical Action',
       tags: {
-        [Tag.EverydayLife]: null as unknown as undefined,
+        [Subject.EverydayLife]: null as unknown as undefined,
       }
     });
   }
@@ -140,7 +140,7 @@ for (let i = 0; i < els.length; i++) {
   else if (el.pathname.startsWith('/wikipedia_en_for_schools_opt_2013')) {
     objs.push({
       ...obj,
-      type: 'module',
+      type: 'primary',
       by: 'Wikipedia for Schools',
       tags: {}
     });
@@ -149,10 +149,10 @@ for (let i = 0; i < els.length; i++) {
   else if (el.pathname.startsWith('/wikivoyage_en_all_2016-04')) {
     objs.push({
       ...obj,
-      type: 'module',
+      type: 'primary',
       by: 'Wikivoyage',
       tags: {
-        [Tag.Arts]: Arts.Geography,
+        [Subject.Arts]: Arts.Geography,
       }
     });
   }
@@ -160,10 +160,10 @@ for (let i = 0; i < els.length; i++) {
   else if (el.pathname.startsWith('/wiktionary_en_all_2015-11')) {
     objs.push({
       ...obj,
-      type: 'module',
+      type: 'primary',
       by: 'Wiktionary',
       tags: {
-        [Tag.Languages]: null as unknown as undefined,
+        [Subject.Languages]: null as unknown as undefined,
       }
     });
   }
@@ -171,10 +171,10 @@ for (let i = 0; i < els.length; i++) {
   else if (el.pathname.startsWith('/modules/en-worldmap')) {
     objs.push({
       ...obj,
-      type: 'module',
+      type: 'primary',
       by: 'Interactive World Map',
       tags: {
-        [Tag.Arts]: Arts.Geography,
+        [Subject.Arts]: Arts.Geography,
       }
     });
   }
@@ -182,7 +182,7 @@ for (let i = 0; i < els.length; i++) {
   else if (el.pathname.startsWith('/modules/en-windows_apps')) {
     objs.push({
       ...obj,
-      type: 'module',
+      type: 'primary',
       by: 'Windows Applications',
       tags: {}
     });
@@ -199,3 +199,26 @@ JSON.stringify(objs);
 //   console.log(e);
 // });
 // console.log(']');
+
+/**
+ * This script was used to pull the books from African Storybook Project.
+ * You have to run the script in the browser for each page.
+ * 
+ * Example: English -> First words and English -> First sentences
+ * You'd run the script twice, once on each page.
+ * 
+ * It's less tedious if you don't close the page after running the script
+ * since opening a new page in ASP will use the old tab with the script
+ * in the console history.
+ */
+let e = document.getElementsByTagName('a');
+let pdfs = [];
+for (let i = 0; i < e.length; i++) {
+  if (e[i].pathname.endsWith('.pdf')) {
+    pdfs.push({
+      title: e[i].innerText.slice(0, e[i].innerText.indexOf('.pdf')),
+      path: e[i].pathname,
+    });
+  }
+}
+console.log(JSON.stringify(pdfs));
