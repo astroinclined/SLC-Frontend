@@ -89,8 +89,6 @@ function MasterMenu(props: Props) {
                   type: 'subject',
                   title: text,
                 });
-                // setView(View.SUBJECTS);
-                // setResults(data.filter(el => text in el.tags));
                 setOpen(false);
               }}
               component={Link}
@@ -116,8 +114,6 @@ function MasterMenu(props: Props) {
                   type: 'source',
                   title: text,
                 });
-                // setView(View.SOURCES);
-                // setResults(data.filter(el => formatString(el.by) === formatString(text)));
                 setOpen(false);
               }}
               component={Link}

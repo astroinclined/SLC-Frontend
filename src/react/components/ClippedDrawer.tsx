@@ -198,26 +198,20 @@ function ClippedDrawer(props: Props) {
     const isPathInSources = sources.map(el => formatString(el)).includes(pathname);
 
     if (isPathInSubjects) {
-      // setView(View.SUBJECTS);
       loadCategoryModules({
         type: 'subject',
         title: subjects.find(el => formatString(el) === pathname)!
       });
-      // setResults(data.filter(el => Object.keys(el.tags).map(key => formatString(key)).includes(pathname)));
     } else if (isPathInSources) {
-      // setView(View.SOURCES);
       loadCategoryModules({
         type: 'source',
         title: sources.find(el => formatString(el) === pathname)!
       });
-      // setResults(data.filter(el => formatString(el.by) === pathname));
     } else if (pathname === '') {
       setView(View.HOME);
-      // setResults([]);
     } else {
       // Add 404 to enum and set that here?
       setView(View.HOME);
-      // setResults([]);
     }
   }
 
@@ -258,8 +252,6 @@ function ClippedDrawer(props: Props) {
   const debounceInput = React.useCallback(debounce((input: string) => {
     if (input !== '') {
       loadSearchResults(input);
-      // setView(View.SEARCH);
-      //setResults(data.filter(el => el.name.toLowerCase().includes(input.toLowerCase())));
     } else {
       setStateFromPathname();
     }
