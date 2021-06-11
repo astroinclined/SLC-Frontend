@@ -14,7 +14,7 @@ import ResultCard from './ResultsCard'
 import PDFCard from './pdfCard'
 import HomePage from './HomePage'
 import { Button, ButtonGroup, Grid, Typography } from "@material-ui/core";
-import { Display, sources, Subject, subjects, TagMap } from '../Data'
+import { Display, sources, Subject, subjects, SubjectCopy } from '../Data'
 import { ReduxState, View } from '../types';
 import Footer from './Footer';
 import { formatString } from '../../helpers';
@@ -216,21 +216,34 @@ function ClippedDrawer(props: Props) {
   }
 
   const getSubjectContent = () => {
-    if (category.type !== 'subject') {
+    if (!SubjectCopy[category.title as Subject]) {
       return;
     }
 
-    const subCategories = Object.values(TagMap[category.title as Subject]);
+    return (
+      <Grid container spacing={4}>
+        <Grid item xs={12} sm={12} md={12} className={classes.leftAlignText}>
+          <Typography variant="h4">Subject: {category.title}</Typography>
+          <Typography variant="subtitle1" color="textSecondary">{(SubjectCopy as any)[category.title].copy}</Typography>
+        </Grid>
+        {getSubjectInnerContent()}
+      </Grid>
+    );
+  }
 
-    if (subCategories) {
-      return subCategories.map((subCategory) => {
+  const getSubjectInnerContent = () => {
+    const subjectInfo = SubjectCopy[category.title as Subject];
+    const groups = Object.keys(subjectInfo.tags);
+
+    if (groups.length) {
+      return groups.map((groupKey) => {
         return (
-          <Grid container spacing={4} className={classes.subcategoryGrid}>
+          <Grid container spacing={4} className={classes.subcategoryGrid} key={groupKey}>
             <Grid item xs={12} sm={12} md={12} className={classes.leftAlignText}>
-              <Typography variant="h5">{subCategory}</Typography>
-              <Typography variant="subtitle1" color="textSecondary">Description for {subCategory}</Typography>
+              <Typography variant="h5">{groupKey}</Typography>
+              <Typography variant="subtitle1" color="textSecondary">{(subjectInfo.tags as any)[groupKey]}</Typography>
             </Grid>
-            {category.modules.filter(el => el.tags.some(tag => tag.name === subCategory)).map(element =>
+            {category.modules.filter(el => el.tags.some(tag => tag.name === groupKey)).map(element =>
               <Grid item xs={12} sm={6} md={4}><ModuleCard title={element.name} author={element.source} port={element.port} url={element.url} /></Grid>
             )}
           </Grid>
@@ -377,15 +390,7 @@ function ClippedDrawer(props: Props) {
               )}
             </Grid>
           ) : (
-            view === View.SUBJECTS ? (
-              <Grid container spacing={4}>
-                <Grid item xs={12} sm={12} md={12} className={classes.leftAlignText}>
-                  <Typography variant="h4">Subject: {category.title}</Typography>
-                  <Typography variant="subtitle1" color="textSecondary">Description for {category.title}</Typography>
-                </Grid>
-                {getSubjectContent()}
-              </Grid>
-            ) : (
+            view === View.SUBJECTS ? getSubjectContent() : (
               view === View.SOURCES ? (
                 <Grid direction="column" spacing={1} container className={classes.leftAlignText}>
                   <Grid item xs={12} sm={12} md={12}>
