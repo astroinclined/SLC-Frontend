@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { DataObject } from '../Data';
-import { View } from '../types';
+import { CategoryObject, View } from '../types';
 
 const searchReducer = (search = "", action: { type: string, payload: string }) => {
   if (action.type === 'SEARCH') {
@@ -16,7 +16,7 @@ const viewReducer = (view = View.HOME, action: { type: string, payload: View }) 
   return view;
 }
 
-const categoryReducer = (category = '', action: { type: string, payload: string }) => {
+const categoryReducer = (category = '', action: { type: string, payload: CategoryObject }) => {
   if (action.type === 'CATEGORY') {
     return action.payload;
   }

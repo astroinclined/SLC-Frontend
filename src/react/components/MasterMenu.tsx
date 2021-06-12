@@ -5,23 +5,30 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import { data, sources, subjects } from '../Data';
+import { sources, subjects } from '../Data';
 import { formatString } from '../../helpers';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import { Link, useLocation } from 'react-router-dom';
-import { ReduxProps, View } from '../types';
-import { connect } from 'react-redux';
-import { setView, setCategory, setResults } from '../actions';
+import { connect, ConnectedProps } from 'react-redux';
+import { setView, loadCategoryModules, setResults } from '../actions';
 import useTheme from '@material-ui/core/styles/useTheme';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 type DrawerVariant = "temporary" | "permanent" | "persistent";
 
-interface Props {
+const mapDispatchToProps = {
+  setView,
+  loadCategoryModules,
+  setResults,
+}
+
+const connector = connect(null, mapDispatchToProps);
+
+type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
-}
+} & ConnectedProps<typeof connector>;
 
 const drawerWidth = 210;
 
@@ -45,8 +52,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function MasterMenu(props: Pick<ReduxProps, "setView" | "setCategory" | "setResults"> & Props) {
-  const { setView, setCategory, setResults } = props;
+function MasterMenu(props: Props) {
+  const { open, setOpen, loadCategoryModules } = props;
   const classes = useStyles();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
@@ -63,7 +70,7 @@ function MasterMenu(props: Pick<ReduxProps, "setView" | "setCategory" | "setResu
       className={classes.drawer}
       classes={{ paper: classes.drawerPaper }}
       {...responsiveDrawerProps}
-      open={props.open}
+      open={open}
     >
       <Toolbar />
       <div className={classes.drawerContainer}>
@@ -78,10 +85,11 @@ function MasterMenu(props: Pick<ReduxProps, "setView" | "setCategory" | "setResu
               selected={formatString(text) === pathname}
               className={classes.nested}
               onClick={() => {
-                setCategory(text);
-                setView(View.SUBJECTS);
-                setResults(data.filter(el => text in el.tags));
-                props.setOpen(false);
+                loadCategoryModules({
+                  type: 'subject',
+                  title: text,
+                });
+                setOpen(false);
               }}
               component={Link}
               to={"/" + formatString(text)}
@@ -102,10 +110,11 @@ function MasterMenu(props: Pick<ReduxProps, "setView" | "setCategory" | "setResu
               selected={formatString(text) === pathname}
               className={classes.nested}
               onClick={() => {
-                setCategory(text);
-                setView(View.SOURCES);
-                setResults(data.filter(el => formatString(el.by) === formatString(text)));
-                props.setOpen(false);
+                loadCategoryModules({
+                  type: 'source',
+                  title: text,
+                });
+                setOpen(false);
               }}
               component={Link}
               to={"/" + formatString(text)}
@@ -119,10 +128,4 @@ function MasterMenu(props: Pick<ReduxProps, "setView" | "setCategory" | "setResu
   );
 }
 
-const mapDispatchToProps = {
-  setView,
-  setCategory,
-  setResults,
-}
-
-export default connect(null, mapDispatchToProps)(MasterMenu);
+export default connector(MasterMenu);

@@ -1,11 +1,10 @@
-import { makeStyles,fade, useTheme } from '@material-ui/core/styles';
+import { makeStyles, fade } from '@material-ui/core/styles';
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import IconButton from '@material-ui/core/IconButton';
 import {VideoCardProps} from '../types'
-import { Button, ButtonGroup, Grid, Typography} from "@material-ui/core";
+import { Button, Typography} from "@material-ui/core";
 
 
 
@@ -46,8 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
    
 }));
- function VideoCard( props: VideoCardProps){
-    const theme = useTheme();
+ function VideoCard(props: VideoCardProps){
     const classes = useStyles()
     return(
     <Card className={classes.root}>
