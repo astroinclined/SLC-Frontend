@@ -6,7 +6,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { CardActionArea } from '@material-ui/core';
 import { CardProps } from '../types';
-import { openInNewTab } from '../../helpers';
+import { getAnchorProps } from '../../helpers';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,8 +21,7 @@ const useStyles = makeStyles((theme) => ({
     flex: '1 0 auto',
   },
   cover: {
-   width:151
-   
+    width: 151
   },
   controls: {
     display: 'flex',
@@ -29,32 +29,37 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(1),
     paddingBottom: theme.spacing(1),
   },
-
+  anchor: {
+    color: 'inherit',
+    textDecoration: 'none',
+  }
 }));
 
 export default function ResultCard(props: CardProps) {
   const classes = useStyles();
+  const anchorProps = getAnchorProps(props.port, props.url);
 
   return (
-    <CardActionArea onClick={() => openInNewTab(props.port, props.url)}>
-    <Card style={{height:'100%'}} className={classes.root}>
-      <CardMedia
-        className={classes.cover}
-        image="https://animals.sandiegozoo.org/sites/default/files/2016-11/animals_hero_lizards.jpg"
-        title="Live from space album cover"
-      />
-      <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            {props.title}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {props.author}
-          </Typography>
-        </CardContent>
-      </div>
-      
-    </Card>
-    </CardActionArea>
+    <Link {...anchorProps} className={classes.anchor}>
+      <CardActionArea>
+        <Card style={{ height: '100%' }} className={classes.root}>
+          <CardMedia
+            className={classes.cover}
+            image="https://animals.sandiegozoo.org/sites/default/files/2016-11/animals_hero_lizards.jpg"
+            title="Live from space album cover"
+          />
+          <div className={classes.details}>
+            <CardContent className={classes.content}>
+              <Typography component="h5" variant="h5">
+                {props.title}
+              </Typography>
+              <Typography variant="subtitle1" color="textSecondary">
+                {props.author}
+              </Typography>
+            </CardContent>
+          </div>
+        </Card>
+      </CardActionArea>
+    </Link>
   );
 }

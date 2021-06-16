@@ -26,6 +26,7 @@ import useTheme from '@material-ui/core/styles/useTheme';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import debounce from '@material-ui/core/utils/debounce';
 import { CSSTransition } from 'react-transition-group';
+import SecondaryCard from './SecondaryCard';
 
 const mapDispatchToProps = {
   setView,
@@ -194,6 +195,8 @@ function ClippedDrawer(props: Props) {
   const pathname = location.pathname.slice(1);
 
   const setStateFromPathname = () => {
+    // const segments = pathname.split('/');
+
     const isPathInSubjects = subjects.map(el => formatString(el)).includes(pathname);
     const isPathInSources = sources.map(el => formatString(el)).includes(pathname);
 
@@ -273,7 +276,7 @@ function ClippedDrawer(props: Props) {
       });
     } else {
       return category.modules.map(element =>
-        <Grid item xs={12} sm={6} md={4}><ModuleCard title={element.name} author={element.source} port={element.port} url={element.url} /></Grid>
+        <Grid item xs={12} sm={6} md={4}><SecondaryCard title={element.name} author={element.source} port={element.port} url={element.url} /></Grid>
       );
     }
   }

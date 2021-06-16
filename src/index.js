@@ -5,8 +5,8 @@ import App from './react/App';
 import reportWebVitals from './react/reportWebVitals';
 import { createStore, compose, applyMiddleware } from 'redux'
 import allReducers from './react/reducers/index'
-import {Provider} from 'react-redux'
-import {BrowserRouter} from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
 import { defaultState } from './react/types';
 import thunk from 'redux-thunk';
 
@@ -16,10 +16,10 @@ const store = createStore(allReducers, defaultState, composeEnhancers(applyMiddl
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store = {store}>
-    <BrowserRouter >
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
