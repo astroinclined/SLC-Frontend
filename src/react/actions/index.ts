@@ -1,7 +1,7 @@
 import { Module } from '../Data'
 import { CategoryObject, CategoryPayload, View } from '../types'
 import { Dispatch } from "redux";
-import ModuleService from '../../services/modules';
+import ModuleService, { ModuleListSubmodulesParams } from '../../services/modules';
 
 export const changeSearch = (payload: string) => {
   return {
@@ -45,6 +45,14 @@ export const loadCategoryModules = (payload: CategoryPayload) => (dispatch: Disp
       modules,
     }));
     dispatch(setView(isSubject ? View.SUBJECTS : View.SOURCES));
+  });
+}
+
+export const loadSubmodules = (payload: ModuleListSubmodulesParams) => (dispatch: Dispatch) => {
+  console.log('loadSubmodules');
+  ModuleService.listSubmodules(payload).then(modules => {
+    dispatch(setResults(modules));
+    dispatch(setView(View.SUBMODULES));
   });
 }
 

@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flex: '1 0 auto',
+    textAlign: 'left',
   },
   cover: {
     width: 130,

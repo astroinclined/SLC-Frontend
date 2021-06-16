@@ -8,7 +8,13 @@ export interface Module {
     name: string;
     subject_name: Subject;
   }[];
-  group?: string; 
+  group?: string;
+  parent_module?: ParentModule;
+}
+
+interface ParentModule {
+  name: string;
+  parent_module?: ParentModule | null;
 }
 
 const commonGroupCopyStart = 'This section contains learning resources';

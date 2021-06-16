@@ -13,14 +13,12 @@ const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     height: 122,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
   content: {
     display: 'flex',
     alignItems: 'center',
-    marginLeft: '0.5rem',
-    marginRight: '5rem',
   },
   cover: {
     width: 100,
@@ -41,15 +39,15 @@ export default function SecondaryCard(props: CardProps) {
     <Card>
       <Link {...anchorProps} className={classes.anchor}>
         <CardActionArea className={classes.root}>
+          <CardContent className={classes.content}>
+            <Typography component="h5" variant="h5">
+              {props.title}
+            </Typography>
+          </CardContent>
           <CardMedia
             className={classes.cover}
             image="https://material-ui.com/static/images/cards/contemplative-reptile.jpg"
           />
-          <CardContent className={classes.content}>
-            <Typography component="h5" variant="h5">
-              Content Title
-            </Typography>
-          </CardContent>
         </CardActionArea>
       </Link>
     </Card>

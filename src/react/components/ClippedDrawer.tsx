@@ -7,7 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { useLocation } from 'react-router-dom'
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import { setView, loadCategoryModules, loadSearchResults } from '../actions'
+import { setView, loadCategoryModules, loadSearchResults, loadSubmodules } from '../actions'
 import { connect, ConnectedProps } from 'react-redux';
 import ModuleCard from './Card'
 import ResultCard from './ResultsCard'
@@ -27,11 +27,13 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import debounce from '@material-ui/core/utils/debounce';
 import { CSSTransition } from 'react-transition-group';
 import SecondaryCard from './SecondaryCard';
+import SubmoduleView from './SubmoduleView';
 
 const mapDispatchToProps = {
   setView,
   loadCategoryModules,
   loadSearchResults,
+  loadSubmodules,
 }
 
 const mapStateToProps = (state: ReduxState) => {
@@ -175,7 +177,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ClippedDrawer(props: Props) {
-  const { view, category, results, setView, loadCategoryModules, loadSearchResults } = props;
+  const {
+    view,
+    category,
+    results,
+    setView,
+    loadCategoryModules,
+    loadSearchResults,
+    loadSubmodules
+  } = props;
 
   const searchRef = React.useRef<any>();
 
@@ -195,26 +205,30 @@ function ClippedDrawer(props: Props) {
   const pathname = location.pathname.slice(1);
 
   const setStateFromPathname = () => {
-    // const segments = pathname.split('/');
+    const segments = pathname.split('/');
 
-    const isPathInSubjects = subjects.map(el => formatString(el)).includes(pathname);
-    const isPathInSources = sources.map(el => formatString(el)).includes(pathname);
-
-    if (isPathInSubjects) {
-      loadCategoryModules({
-        type: 'subject',
-        title: subjects.find(el => formatString(el) === pathname)!
-      });
-    } else if (isPathInSources) {
-      loadCategoryModules({
-        type: 'source',
-        title: sources.find(el => formatString(el) === pathname)!
-      });
-    } else if (pathname === '') {
-      setView(View.HOME);
+    if (segments.length > 1) {
+      loadSubmodules({ path: location.pathname });
     } else {
-      // Add 404 to enum and set that here?
-      setView(View.HOME);
+      const subjectPath = subjects.find(el => formatString(el) === pathname);
+      const sourcePath = sources.find(el => formatString(el) === pathname);
+
+      if (subjectPath) {
+        loadCategoryModules({
+          type: 'subject',
+          title: subjectPath,
+        });
+      } else if (sourcePath) {
+        loadCategoryModules({
+          type: 'source',
+          title: sourcePath,
+        });
+      } else if (pathname === '') {
+        setView(View.HOME);
+      } else {
+        // Add 404 to enum and set that here?
+        setView(View.HOME);
+      }
     }
   }
 
@@ -261,7 +275,7 @@ function ClippedDrawer(props: Props) {
     }
 
     if (groups.length) {
-      return groups.sort((a,b) => a.localeCompare(b)).map((groupKey) => {
+      return groups.sort((a, b) => a.localeCompare(b)).map((groupKey) => {
         return (
           <Grid container spacing={4} className={classes.subcategoryGrid} key={groupKey}>
             <Grid item xs={12} sm={12} md={12} className={classes.leftAlignText}>
@@ -300,6 +314,38 @@ function ClippedDrawer(props: Props) {
       );
     } else {
       return getCategoryContent();
+    }
+  }
+
+  const getViewContent = () => {
+    switch (view) {
+      case View.SEARCH:
+        return (
+          <Grid direction="column" spacing={1} container className={results.length > 0 ? classes.leftAlignText : ''}>
+            {results.length > 0 ? (
+              <Grid item xs={12} sm={12} md={12}>
+                <Typography variant="h4">{`Results for "${props.search}"`}</Typography>
+                <Typography variant="subtitle1" color="textSecondary">{`Showing ${results.length} result${results.length > 1 ? 's' : ''}`}</Typography>
+              </Grid>
+            ) : (
+              <Grid item xs={12} sm={12} md={12}>
+                <Typography variant="subtitle1">{`Sorry, we couldn't find any results for "${props.search}".`}</Typography>
+                <Typography variant="subtitle1">Please try another search.</Typography>
+              </Grid>
+            )}
+            {results.map(element =>
+              <Grid item xs={12} sm={12} md={12}><ResultCard title={element.name} author={element.source} port={element.port} url={element.url} /></Grid>
+            )}
+          </Grid>
+        );
+      case View.SUBJECTS:
+        return getCategoryContent();
+      case View.SOURCES:
+        return getSourceContent();
+      case View.SUBMODULES:
+        return <SubmoduleView />;
+      case View.HOME:
+        return <HomePage title="" ></HomePage>;
     }
   }
 
@@ -418,30 +464,7 @@ function ClippedDrawer(props: Props) {
 
       <div className={classes.contentContainer}>
         <main className={classes.content}>
-
-          {view === View.SEARCH ? (
-            <Grid direction="column" spacing={1} container className={results.length > 0 ? classes.leftAlignText : ''}>
-              {results.length > 0 ? (
-                <Grid item xs={12} sm={12} md={12}>
-                  <Typography variant="h4">{`Results for "${props.search}"`}</Typography>
-                  <Typography variant="subtitle1" color="textSecondary">{`Showing ${results.length} result${results.length > 1 ? 's' : ''}`}</Typography>
-                </Grid>
-              ) : (
-                <Grid item xs={12} sm={12} md={12}>
-                  <Typography variant="subtitle1">{`Sorry, we couldn't find any results for "${props.search}".`}</Typography>
-                  <Typography variant="subtitle1">Please try another search.</Typography>
-                </Grid>
-              )}
-              {results.map(element =>
-                <Grid item xs={12} sm={12} md={12}><ResultCard title={element.name} author={element.source} port={element.port} url={element.url} /></Grid>
-              )}
-            </Grid>
-          ) : (
-            view === View.SUBJECTS ? getCategoryContent() : (
-              view === View.SOURCES ? getSourceContent() : <HomePage title="" ></HomePage>
-            )
-          )}
-
+          {getViewContent()}
         </main>
         <Footer />
       </div>
