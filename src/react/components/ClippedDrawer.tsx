@@ -14,7 +14,7 @@ import ResultCard from './ResultsCard'
 import PDFCard from './pdfCard'
 import HomePage from './HomePage'
 import { Button, ButtonGroup, Grid, Typography } from "@material-ui/core";
-import { Display, sources, Subject, subjects, SubjectCopy } from '../Data'
+import { Display, sources, Subject, subjects, SubjectCopy, Source, SourceCopy, getSourceGroupCopy, Module } from '../Data'
 import { ReduxState, View } from '../types';
 import Footer from './Footer';
 import { formatString } from '../../helpers';
@@ -215,35 +215,57 @@ function ClippedDrawer(props: Props) {
     }
   }
 
-  const getSubjectContent = () => {
-    if (!SubjectCopy[category.title as Subject]) {
+  const getCategoryContent = () => {
+    const isSubject = category.type === 'subject';
+
+    const copyMap = ((isSubject ? SubjectCopy : SourceCopy) as any)[category.title];
+
+    if (!copyMap) {
       return;
     }
+
+    const description = isSubject ? copyMap.copy : copyMap;
 
     return (
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={12} className={classes.leftAlignText}>
-          <Typography variant="h4">Subject: {category.title}</Typography>
-          <Typography variant="subtitle1" color="textSecondary">{(SubjectCopy as any)[category.title].copy}</Typography>
+          <Typography variant="h4">{isSubject ? 'Subject' : 'Source'}: {category.title}</Typography>
+          <Typography variant="subtitle1" color="textSecondary">{description}</Typography>
         </Grid>
-        {getSubjectInnerContent()}
+        {getInnerCategoryContent()}
       </Grid>
     );
   }
 
-  const getSubjectInnerContent = () => {
-    const subjectInfo = SubjectCopy[category.title as Subject];
-    const groups = Object.keys(subjectInfo.tags);
+  const getInnerCategoryContent = () => {
+    const isSubject = category.type === 'subject';
+    let info: { [x: string]: string };
+    let groups: string[];
+
+    if (isSubject) {
+      info = SubjectCopy[category.title as Subject].tags;
+      groups = Object.keys(info);
+    } else {
+      groups = [...Array.from(new Set(category.modules.filter(mod => !!mod.group).map(mod => mod.group!)))];
+    }
+
+    const filterGroups = (mod: Module, groupKey: string) => {
+      if (isSubject) {
+        return mod.tags.some(tag => tag.name === groupKey);
+      }
+
+      return mod.group === groupKey;
+    }
 
     if (groups.length) {
-      return groups.map((groupKey) => {
+      return groups.sort((a,b) => a.localeCompare(b)).map((groupKey) => {
         return (
           <Grid container spacing={4} className={classes.subcategoryGrid} key={groupKey}>
             <Grid item xs={12} sm={12} md={12} className={classes.leftAlignText}>
               <Typography variant="h5">{groupKey}</Typography>
-              <Typography variant="subtitle1" color="textSecondary">{(subjectInfo.tags as any)[groupKey]}</Typography>
+              <Typography variant="subtitle1" color="textSecondary">{isSubject ? (info as any)[groupKey] : getSourceGroupCopy(groupKey, category.title)}</Typography>
             </Grid>
-            {category.modules.filter(el => el.tags.some(tag => tag.name === groupKey)).map(element =>
+            {category.modules.filter(el => filterGroups(el, groupKey)).map(element =>
               <Grid item xs={12} sm={6} md={4}><ModuleCard title={element.name} author={element.source} port={element.port} url={element.url} /></Grid>
             )}
           </Grid>
@@ -253,6 +275,28 @@ function ClippedDrawer(props: Props) {
       return category.modules.map(element =>
         <Grid item xs={12} sm={6} md={4}><ModuleCard title={element.name} author={element.source} port={element.port} url={element.url} /></Grid>
       );
+    }
+  }
+
+  const getSourceContent = () => {
+    if (category.title === Source.HesperianHealth) {
+      return (
+        <Grid direction="column" spacing={1} container className={classes.leftAlignText}>
+          <Grid item xs={12} sm={12} md={12}>
+            <Typography variant="h4">Source: {category.title}</Typography>
+            <Typography variant="subtitle1" color="textSecondary">{SourceCopy[category.title as Source]}</Typography>
+          </Grid>
+          {category.modules
+            .map(element => {
+              if (element.display === Display.Text) { return <Grid item xs={12} sm={12} md={12}><PDFCard title={element.name} author={element.source} port={element.port} url={element.url} /></Grid> }
+              else {
+                return <Grid item xs={12} sm={12} md={12}><ResultCard title={element.name} author={element.source} port={element.port} url={element.url} /></Grid>
+              }
+            })}
+        </Grid>
+      );
+    } else {
+      return getCategoryContent();
     }
   }
 
@@ -390,22 +434,8 @@ function ClippedDrawer(props: Props) {
               )}
             </Grid>
           ) : (
-            view === View.SUBJECTS ? getSubjectContent() : (
-              view === View.SOURCES ? (
-                <Grid direction="column" spacing={1} container className={classes.leftAlignText}>
-                  <Grid item xs={12} sm={12} md={12}>
-                    <Typography variant="h4">Source: {category.title}</Typography>
-                    <Typography variant="subtitle1" color="textSecondary">Description for {category.title}</Typography>
-                  </Grid>
-                  {category.modules
-                    .map(element => {
-                      if (element.display === Display.Text) { return <Grid item xs={12} sm={12} md={12}><PDFCard title={element.name} author={element.source} port={element.port} url={element.url} /></Grid> }
-                      else {
-                        return <Grid item xs={12} sm={12} md={12}><ResultCard title={element.name} author={element.source} port={element.port} url={element.url} /></Grid>
-                      }
-                    })}
-                </Grid>
-              ) : <HomePage title= "" ></HomePage>
+            view === View.SUBJECTS ? getCategoryContent() : (
+              view === View.SOURCES ? getSourceContent() : <HomePage title="" ></HomePage>
             )
           )}
 
