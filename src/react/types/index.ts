@@ -2,7 +2,7 @@ import { AnyAction, Dispatch } from 'redux';
 import { Module } from '../Data';
 
 export enum View {
-  HOME, SEARCH, SUBJECTS, SOURCES, SUBMODULES,
+  HOME, SEARCH, SUBJECTS, SOURCES, SUBMODULES, NOTFOUND,
 }
 
 export interface CardProps {

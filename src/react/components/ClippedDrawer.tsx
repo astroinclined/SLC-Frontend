@@ -28,6 +28,7 @@ import debounce from '@material-ui/core/utils/debounce';
 import { CSSTransition } from 'react-transition-group';
 import SecondaryCard from './SecondaryCard';
 import SubmoduleView from './SubmoduleView';
+import PageNotFound from './PageNotFound';
 
 const mapDispatchToProps = {
   setView,
@@ -227,7 +228,7 @@ function ClippedDrawer(props: Props) {
         setView(View.HOME);
       } else {
         // Add 404 to enum and set that here?
-        setView(View.HOME);
+        setView(View.NOTFOUND);
       }
     }
   }
@@ -460,14 +461,18 @@ function ClippedDrawer(props: Props) {
         </Toolbar>
 
       </AppBar>
-      <MasterMenu open={mobileMenuOpen} setOpen={setMobileMenuOpen} />
+      {view === View.NOTFOUND ? <PageNotFound /> : (
+        <>
+          <MasterMenu open={mobileMenuOpen} setOpen={setMobileMenuOpen} />
 
-      <div className={classes.contentContainer}>
-        <main className={classes.content}>
-          {getViewContent()}
-        </main>
-        <Footer />
-      </div>
+          <div className={classes.contentContainer}>
+            <main className={classes.content}>
+              {getViewContent()}
+            </main>
+            <Footer />
+          </div>
+        </>
+      )}
 
     </div>
 
