@@ -51,7 +51,10 @@ function PageNotFound() {
     <div className={classes.background}>
       <div className={classes.container}>
         <Typography variant="h5">PAGE NOT FOUND</Typography>
-        <Typography variant="body1">It seems the page you are looking for got lost in space. But don't worry! There are still several Simbi Learn Cloud pages you can browse for your learning.</Typography>
+        <Typography variant="body1">
+          It seems the page you are looking for got lost in space. But don't worry!
+          There are still several Simbi Learn Cloud pages you can browse for your learning.
+        </Typography>
         <Button className={classes.button} onClick={() => history.push('/')}>Back to home</Button>
       </div>
       <Typography variant="h6" className={classes.errorCode}>404</Typography>

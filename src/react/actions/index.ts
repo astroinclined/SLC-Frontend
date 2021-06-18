@@ -49,7 +49,6 @@ export const loadCategoryModules = (payload: CategoryPayload) => (dispatch: Disp
 }
 
 export const loadSubmodules = (payload: ModuleListSubmodulesParams) => (dispatch: Dispatch) => {
-  console.log('loadSubmodules');
   ModuleService.listSubmodules(payload).then(modules => {
     dispatch(setResults(modules));
     dispatch(setView(View.SUBMODULES));

@@ -52,8 +52,14 @@ function ErrorFallback() {
         <ErrorPaper className={classes.errorIcon} />
       <div className={classes.container}>
         <Typography variant="h4" className={classes.heading}>This page is having a problem loading</Typography>
-        <Typography variant="body1">Don't worry, you didn't do anything wrong! Our system is having some issues at the moment. You can try clicking the 'reload' button below or please try coming back later.</Typography>
-        <Typography variant="body1">If this problem persists, please contact your school's administrator, who will be able to contact Simbi Foundation for support.</Typography>
+        <Typography variant="body1">
+          Don't worry, you didn't do anything wrong! Our system is having some issues at the moment. 
+          You can try clicking the 'reload' button below or please try coming back later.
+        </Typography>
+        <Typography variant="body1">
+          If this problem persists, please contact your school's administrator, who will be able to 
+          contact Simbi Foundation for support.
+        </Typography>
         <Button className={classes.button} onClick={() => window.location.reload()}>Reload</Button>
       </div>
       </div>

@@ -29,6 +29,7 @@ import { CSSTransition } from 'react-transition-group';
 import SecondaryCard from './SecondaryCard';
 import SubmoduleView from './SubmoduleView';
 import PageNotFound from './PageNotFound';
+import ErrorDialog from './ErrorDialog';
 
 const mapDispatchToProps = {
   setView,
@@ -196,6 +197,9 @@ function ClippedDrawer(props: Props) {
 
   // This might not be nexcessary, using it to debounce the search term while keeping the input updated
   const [searchInput, setSearchInput] = React.useState('');
+
+
+  const [dialogOpen, setDialogOpen] = React.useState(false);
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
@@ -394,7 +398,7 @@ function ClippedDrawer(props: Props) {
                   <Button className={classes.appBarButton}>
                     Resources
                   </Button>
-                  <Button className={classes.appBarButton}>
+                  <Button className={classes.appBarButton} onClick={() => setDialogOpen(true)}>
                     Accessibility
                   </Button>
                 </>
@@ -473,7 +477,14 @@ function ClippedDrawer(props: Props) {
           </div>
         </>
       )}
-
+      <ErrorDialog
+        open={dialogOpen}
+        handleClose={() => setDialogOpen(false)}
+        handleRetry={() => {
+          console.log('retry clicked');
+          setDialogOpen(false);
+        }}
+      />
     </div>
 
   );
