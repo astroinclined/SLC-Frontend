@@ -3,6 +3,7 @@ import '../react/css/header.css'
 import ClippedDrawer from './components/ClippedDrawer'
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import ThemeProvider from '@material-ui/styles/ThemeProvider';
+import ErrorBoundary from './ErrorBoundary';
 
 const theme = createMuiTheme({
   overrides: {
@@ -20,9 +21,11 @@ const theme = createMuiTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
-        <ClippedDrawer />
-      </div>
+      <ErrorBoundary>
+        <div className="App">
+          <ClippedDrawer />
+        </div>
+      </ErrorBoundary>
     </ThemeProvider>
   );
 }

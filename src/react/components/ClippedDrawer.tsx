@@ -28,6 +28,8 @@ import debounce from '@material-ui/core/utils/debounce';
 import { CSSTransition } from 'react-transition-group';
 import SecondaryCard from './SecondaryCard';
 import SubmoduleView from './SubmoduleView';
+import PageNotFound from './PageNotFound';
+import ErrorDialog from './ErrorDialog';
 
 const mapDispatchToProps = {
   setView,
@@ -196,6 +198,9 @@ function ClippedDrawer(props: Props) {
   // This might not be nexcessary, using it to debounce the search term while keeping the input updated
   const [searchInput, setSearchInput] = React.useState('');
 
+
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
 
@@ -227,7 +232,7 @@ function ClippedDrawer(props: Props) {
         setView(View.HOME);
       } else {
         // Add 404 to enum and set that here?
-        setView(View.HOME);
+        setView(View.NOTFOUND);
       }
     }
   }
@@ -393,7 +398,7 @@ function ClippedDrawer(props: Props) {
                   <Button className={classes.appBarButton}>
                     Resources
                   </Button>
-                  <Button className={classes.appBarButton}>
+                  <Button className={classes.appBarButton} onClick={() => setDialogOpen(true)}>
                     Accessibility
                   </Button>
                 </>
@@ -460,15 +465,26 @@ function ClippedDrawer(props: Props) {
         </Toolbar>
 
       </AppBar>
-      <MasterMenu open={mobileMenuOpen} setOpen={setMobileMenuOpen} />
+      {view === View.NOTFOUND ? <PageNotFound /> : (
+        <>
+          <MasterMenu open={mobileMenuOpen} setOpen={setMobileMenuOpen} />
 
-      <div className={classes.contentContainer}>
-        <main className={classes.content}>
-          {getViewContent()}
-        </main>
-        <Footer />
-      </div>
-
+          <div className={classes.contentContainer}>
+            <main className={classes.content}>
+              {getViewContent()}
+            </main>
+            <Footer />
+          </div>
+        </>
+      )}
+      <ErrorDialog
+        open={dialogOpen}
+        handleClose={() => setDialogOpen(false)}
+        handleRetry={() => {
+          console.log('retry clicked');
+          setDialogOpen(false);
+        }}
+      />
     </div>
 
   );

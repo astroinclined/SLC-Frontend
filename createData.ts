@@ -15,7 +15,7 @@
  * also merged with the rest and should be separated manually.
  */
 
-import { Arts, DataObject, EverydayLife, Literature, Subject } from './src/react/Data';
+import { DataObject, Subject } from './src/react/Data';
 
 let objs: DataObject[] = [];
 let blacklist = ['Exercises', 'Tests', 'Printable PDF'];
@@ -47,7 +47,7 @@ for (let i = 0; i < els.length; i++) {
       type: 'module+',
       by: 'African Storybooks',
       tags: {
-        [Subject.Literature]: Literature.Fiction,
+        [Subject.Literature]: "Fiction & Non-Fiction",
         [Subject.Languages]: null as unknown as undefined,
       }
     });
@@ -68,7 +68,7 @@ for (let i = 0; i < els.length; i++) {
       type: 'primary',
       by: 'Great Books of the World',
       tags: {
-        [Subject.Literature]: Literature.Fiction,
+        [Subject.Literature]: "Fiction & Non-Fiction",
       }
     });
   }
@@ -88,7 +88,7 @@ for (let i = 0; i < els.length; i++) {
       type: 'text',
       by: 'Hesperian Health Guides',
       tags: {
-        [Subject.EverydayLife]: EverydayLife.HumanHealth,
+        [Subject.EverydayLife]: "Human Health & Healthcare",
       }
     });
   }
@@ -110,7 +110,7 @@ for (let i = 0; i < els.length; i++) {
       type: 'primary',
       by: 'Medline Plus',
       tags: {
-        [Subject.EverydayLife]: EverydayLife.HumanHealth,
+        [Subject.EverydayLife]: "Human Health & Healthcare",
       }
     });
   }
@@ -121,7 +121,7 @@ for (let i = 0; i < els.length; i++) {
       type: 'primary',
       by: 'Music Theory',
       tags: {
-        [Subject.Arts]: Arts.Music,
+        [Subject.Arts]: "Music",
       }
     });
   }
@@ -152,7 +152,7 @@ for (let i = 0; i < els.length; i++) {
       type: 'primary',
       by: 'Wikivoyage',
       tags: {
-        [Subject.Arts]: Arts.Geography,
+        [Subject.Arts]: "Geography",
       }
     });
   }
@@ -174,7 +174,7 @@ for (let i = 0; i < els.length; i++) {
       type: 'primary',
       by: 'Interactive World Map',
       tags: {
-        [Subject.Arts]: Arts.Geography,
+        [Subject.Arts]: "Geography",
       }
     });
   }
